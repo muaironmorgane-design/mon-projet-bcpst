@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Le Journal d'un Khûbe"
+version = "1.0.0"
+id = "artifacts/journal-khube"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23966
+
+[services.development]
+run = "pnpm --filter @workspace/journal-khube run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/journal-khube", "run", "build" ]
+publicDir = "artifacts/journal-khube/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23966"
+BASE_PATH = "/"
